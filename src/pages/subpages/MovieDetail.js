@@ -4,6 +4,7 @@ import { API_URL } from '../../config/apiurl';
 import './MovieDetail.scss';
 import { FiFileText, FiYoutube } from "react-icons/fi";
 import DetailCommend from '../../container/DetailCommend';
+import DetailReview from './DetailReview';
 
 const MovieDetail = ({data}) => {
     return (
@@ -93,6 +94,7 @@ const MovieDetail = ({data}) => {
                     </div>
                 </div>
             </div>
+            <DetailReview movno={data.mov_no}/>
             <DetailCommend movno={data.mov_no}/>
         </div>
     );
