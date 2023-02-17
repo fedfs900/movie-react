@@ -46,19 +46,27 @@ const WriteCommend = ({movno,onSign}) => {
         axios.post(`${API_URL}/commend`, formData)
         .then(res => {
             console.log(res.data);
+            ss()
             onSign();
             alert('등록되었습니다.');
            
         })
         .catch(e => console.log(e))
+        
     }
+     let count = 0
+     console.log(`함수 밖${count}`)
+     const ss = () => {
+         count += 1
+         console.log(`함수 안${count}`)
+     }
     return (
         <div className='write'>
-            <form onSubmit={onSubmit}>
+             <form onSubmit={onSubmit} >
                 <textarea maxLength={50} onChange={onChange}  name="c_desc"
                 placeholder='이 영화의 한줄평을 자유롭게 적어주세요.' value={formData.c_desc}/>
-                <button type='submit'>등록하기</button>
-            </form>
+                <button type='submit' >등록하기</button>
+            </form> 
             <p>
                 <nav>
                     <span className='countsp'>{textCount}</span>

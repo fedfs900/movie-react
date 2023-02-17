@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, {useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API_URL } from '../config/apiurl';
 import './WriteText.scss';

@@ -15,7 +15,6 @@ const mm = {
 }
 
 const Community = () => {
-  const [posts, setPosts] = useState([]); //초기 받아오는 데이터 설정 초기값은 []
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(5); //한페이지당 렌더링 되는 데이터 수
 
@@ -34,21 +33,9 @@ const Community = () => {
    //페이지숫자 리스트 구현 계산
    const indexOfLast = currentPage * postsPerPage    //페이지 마지막수 1 * 10
    const indexOfFirst = indexOfLast - postsPerPage;   // 페이지 첫번째 수10 - 10 = 0
-   let currentPosts2;
-   const currentPosts =  (posts) => {
-     console.log(indexOfLast)
-     console.log(indexOfFirst)
-     console.log("포스트 불러옴")
-     console.log(posts)
-     currentPosts2 = posts.slice(indexOfFirst, indexOfLast)  //데이터를 0~10번째까지 슬라이스함
-     console.log("배열 원하는 만큼 자름")
-     console.log(currentPosts2) 
-     return currentPosts2;
-   }
-   const postLists = currentPosts(posts)
-   console.log(postLists)
 
-   const {loading, data, error} = useSelector(state => state.moviePost.moviePosts);
+
+  const {loading, data, error} = useSelector(state => state.moviePost.moviePosts);
   const dispatch = useDispatch();
 
   const textData = async () => {
@@ -56,13 +43,19 @@ const Community = () => {
     return data
   }
 
-   useEffect(() => {
+  const currentPosts = (data) => {
+      let currentPosts = data.slice(indexOfFirst, indexOfLast)  //데이터를 0~10번째까지 슬라이스함
+      return currentPosts;
+  }
+
+  useEffect(() => {
     dispatch(getDatas(textData))
-    setPosts(data)
   }, [dispatch])
+  
   if(loading) return <div style={{...mm}}>로딩중입니다..</div>
   if(error) return <div style={{...mm}}>에러가 발생했습니다.</div>
   if(!data) return <div style={{...mm}}>데이터가 없습니다.</div>
+  const postLists = currentPosts(data) //위 조건문 통과 후에 페이징 슬라이스
   return (
     <div className='everyboard inner'>
       <div className='boardbox'>
@@ -90,7 +83,7 @@ const Community = () => {
         <div className='nav'>
             <Pagination
             postsPerPage={postsPerPage}
-            totalPosts={posts.length}
+            totalPosts={data.length}
             paginate={setCurrentPage}
             />
             <div>

@@ -30,7 +30,7 @@ const LoginPage = () => {
             .then(result=>{
                 console.log(result)
                 const {id, nicname} = result.data[0];
-                if(result.data == "실패") {
+                if(result.data === "실패") {
                     alert("로그인 실패하였습니다.")
                 }
                 if(id && nicname) {
